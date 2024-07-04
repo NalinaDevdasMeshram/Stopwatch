@@ -20,7 +20,7 @@ const Stopwatch =()=>{
     // method to reset  timer back to 0
      const ressetTime=()=>{
         setTime(0);
-        // setIsRunning(false)
+         setIsRunning(false)
      }
      // time calculation 
      // minutes calculation 
