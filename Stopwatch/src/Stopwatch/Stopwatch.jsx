@@ -3,23 +3,23 @@ import { useEffect, useState } from "react"
 const Stopwatch =()=>{
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
-    useEffect(()=>{
+ useEffect(()=>{
         let intervalId;
-        if(isRunning){
+     if(isRunning){
             // starting time 0 to 1000 every 1 sec
             intervalId = setInterval(()=>{setTime(prevstate => prevstate+1);
 
             },1000)
         }
-        return () => clearInterval (intervalId)
-    },[isRunning])
+         return () => clearInterval (intervalId)
+    },[isRunning, time])
     // method to start timer 
      const startTime=()=>{
         setIsRunning((prevstate)=>!prevstate)
      }
     // method to reset  timer back to 0
      const ressetTime=()=>{
-        setTime(0);
+        setTime();
          setIsRunning(false)
      }
      // time calculation 
