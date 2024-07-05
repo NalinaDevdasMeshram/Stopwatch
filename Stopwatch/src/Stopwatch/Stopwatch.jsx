@@ -9,9 +9,10 @@ const Stopwatch =()=>{
         if(isRunning){
            intervalId = setInterval(()=>{setTime (prevstate => prevstate + 1);
           },1000);
-        } else{
-             clearInterval(intervalId)
-            }
+         } 
+        //  else{
+        //      clearInterval(intervalId)
+        //     }
         return ()=>clearInterval(intervalId)
     },[isRunning])
     // method to start timer 
@@ -20,7 +21,7 @@ const Stopwatch =()=>{
      };
     // method to reset  timer back to 0
      const resetTime=()=>{
-    //    setIsRunning(false)
+        setIsRunning(false)
         setTime(0);
     }
      const formatTime = (seconds)=>{
