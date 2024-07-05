@@ -1,41 +1,41 @@
-import {useRef, useState } from "react"
+import {useRef, useState,useEffect } from "react"
  import styles from './Stopwatch.module.css'
 const Stopwatch =()=>{
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [startTime, setStartTime] = useState('start')
     const timeRef = useRef(null)
-    const handleStopwatch =()=>{
-    if(isRunning){
-        // console.log(timeRef.current)
-        clearInterval(timeRef.current)
-        setStartTime('start');
-    }else{
-        timeRef.current = setInterval(() =>
-        {
-            setTime((prevState) => prevState + 1);
+//     const handleStopwatch =()=>{
+//     if(isRunning){
+//         // console.log(timeRef.current)
+//         clearInterval(timeRef.current)
+//         setStartTime('start');
+//     }else{
+//         timeRef.current = setInterval(() =>
+//         {
+//             setTime((prevState) => prevState + 1);
             
-        },1000)
-        setStartTime('stop');
-    }
-    setIsRunning(!isRunning)
-};
+//         },1000)
+//         setStartTime('stop');
+//     }
+//     setIsRunning(!isRunning)
+// };
 
-//  useEffect(()=>{
-//         let intervalId ;
-//      if(isRunning){
+ useEffect(()=>{
+        let intervalId ;
+     if(isRunning){
         
-//             // starting time 0 to 1000 every 1 sec
-//             intervalId = setInterval(()=>{setTime(prevstate => prevstate+1);
+            // starting time 0 to 1000 every 1 sec
+            intervalId = setInterval(()=>{setTime(prevstate => prevstate+1);
 
-//             },1000)
-//         }
-//         return () => clearInterval (intervalId)
-//     },[isRunning])
-//     // method to start timer 
-//      const startTime=()=>{
-//         setIsRunning((prevstate)=>!prevstate)
-//      }
+            },1000)
+        }
+        return () => clearInterval (intervalId)
+    },[isRunning])
+    // method to start timer 
+     const handleStopwatch=()=>{
+        setIsRunning((prevstate)=>!prevstate)
+     }
     // method to reset  timer back to 0
      const resetTime=()=>{
         clearInterval(timeRef.current)
