@@ -8,11 +8,11 @@ const Stopwatch =()=>{
     let intervalId;
         if (isRunning) {
            intervalId = setInterval(()=>{setTime (prevstate => prevstate + 1);
-          },1000);
+          }, 2000);
          } 
-        //  else{
-        //      clearInterval(intervalId)
-        //     }
+         else{
+             clearInterval(intervalId)
+            }
         return ()=>clearInterval(intervalId)
     },[isRunning])
     // method to start timer 
@@ -21,20 +21,20 @@ const Stopwatch =()=>{
      };
     // method to reset  timer back to 0
      const ResetTime = () => {
-        setIsRunning(false);
         setTime(0);
+        setIsRunning(false);
     }
      const formatTime = (seconds)=>{
-        const minutes = Math.floor(seconds/60)
+        const minutes = Math.floor(seconds/60);
         const remainingSecond = seconds % 60;
-        return `${minutes} : ${remainingSecond < 10 ? "0" : ""}${remainingSecond}`
+        return `${minutes} : ${remainingSecond < 10 ?"0":" "}${remainingSecond}`;
      }
     
-    //   console.log('time', typeof'Time:{formatTime(time)}') 
+    
  return(
     <div>
        <h1>Stopwatch</h1>
-       <p>{`'Time: ${formatTime(time)}'`}</p>
+       <p>{`Time:  ${formatTime(time)}`}</p>
         <div>
             <button onClick={startStop}>{isRunning ? 'Stop' : 'Start'}</button>
             <button onClick={ResetTime}>Reset</button> 
