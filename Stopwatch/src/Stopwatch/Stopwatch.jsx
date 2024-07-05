@@ -24,9 +24,9 @@ const Stopwatch =()=>{
          setIsRunning(false);
     }
 
-     const formatTime = (Inseconds)=>{
-        const minutes = Math.floor(Inseconds/60);
-        const remainingSecond = Inseconds % 60;
+     const formatTime = (timeIn)=>{
+        const minutes = Math.floor(timeIn/60);
+        const remainingSecond = timeIn % 60;
         return `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`;
      }
     
