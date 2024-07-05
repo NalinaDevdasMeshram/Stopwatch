@@ -3,7 +3,6 @@ import {useState,useEffect} from "react"
 const Stopwatch =()=>{
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
-    
  useEffect(()=>{
     let intervalId;
         if(isRunning){
@@ -35,7 +34,7 @@ const Stopwatch =()=>{
        <h1>StopWatch</h1>
        <p>Time:{formatTime(time)}</p>
         <div>
-            <button onClick={startStop}>{isRunning ? 'stop' : 'start'}</button>
+            <button onClick={startStop}>{isRunning ? 'Stop' : 'Start'}</button>
             <button onClick={resetTime}>Reset</button> 
         </div>
     </div>
