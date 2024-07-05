@@ -36,7 +36,9 @@ const Stopwatch =()=>{
        <h1>Stopwatch</h1>
        <p>Time:{formatTime(timeIn)}</p>
         <div>
-            <button onClick={startStop}>{isRunning ? 'Stop' : 'Start'}</button>
+            <button onClick={startStop}>
+                {isRunning ? 'Stop' : 'Start'}
+            </button>
             <button onClick={ResetTime}>Reset</button> 
         </div>
     </div>
