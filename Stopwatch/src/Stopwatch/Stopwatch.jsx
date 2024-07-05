@@ -34,7 +34,8 @@ const Stopwatch =()=>{
  return(
     <div>
        <h1>Stopwatch</h1>
-       <p>Time:{formatTime(timeIn)}</p>
+       <span>Time</span>
+       <span>:{formatTime(timeIn)}</span>
         <div>
             <button onClick={startStop}>
                 {isRunning ? 'Stop' : 'Start'}
