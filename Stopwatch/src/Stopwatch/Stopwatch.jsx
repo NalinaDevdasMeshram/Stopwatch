@@ -3,9 +3,10 @@ import {useState,useEffect} from "react"
 const Stopwatch =()=>{
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
+
  useEffect(()=>{
     let intervalId;
-        if(isRunning){
+        if (isRunning) {
            intervalId = setInterval(()=>{setTime (prevstate => prevstate + 1);
           },1000);
          } 
@@ -19,24 +20,24 @@ const Stopwatch =()=>{
         setIsRunning(!isRunning)
      };
     // method to reset  timer back to 0
-     const resetTime = () => {
-        setIsRunning(false)
+     const ResetTime = () => {
+        setIsRunning(false);
         setTime(0);
     }
      const formatTime = (seconds)=>{
         const minutes = Math.floor(seconds/60)
         const remainingSecond = seconds % 60;
-        return `${minutes} : ${remainingSecond < 10 ? "0":""}${remainingSecond}`
+        return `${minutes} : ${remainingSecond < 10 ? "0" : ""}${remainingSecond}`
      }
-     console.log('farmet time', formatTime)
-      
+    
+    //   console.log('time', typeof'Time:{formatTime(time)}') 
  return(
     <div>
        <h1>Stopwatch</h1>
-       <p>Time: {formatTime (time)}</p>
+       <p>{`Time:${formatTime(time)}`}</p>
         <div>
             <button onClick={startStop}>{isRunning ? 'Stop' : 'Start'}</button>
-            <button onClick={resetTime}>Reset</button> 
+            <button onClick={ResetTime}>Reset</button> 
         </div>
     </div>
    )
