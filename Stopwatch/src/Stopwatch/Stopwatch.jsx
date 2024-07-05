@@ -5,8 +5,8 @@ const Stopwatch =()=>{
     const [isRunning, setIsRunning] = useState(false);
 
  useEffect(()=>{
-    let intervalId;
-        if (isRunning) {
+        let intervalId;
+        if (isRunning){
            intervalId = setInterval(()=>{setTime (prevstate => prevstate + 1);
           }, 2000);
          } 
@@ -17,7 +17,7 @@ const Stopwatch =()=>{
     },[isRunning])
     // method to start timer 
      const startStop=()=>{
-        setIsRunning(!isRunning)
+        setIsRunning((previsRunning)=> ! previsRunning)
      };
     // method to reset  timer back to 0
      const ResetTime = () => {
@@ -27,7 +27,7 @@ const Stopwatch =()=>{
      const formatTime = (seconds)=>{
         const minutes = Math.floor(seconds/60);
         const remainingSecond = seconds % 60;
-        return `${minutes} : ${remainingSecond < 10 ?"0":" "}${remainingSecond}`;
+        return `${minutes} : ${remainingSecond < 10 ?"0":""}${remainingSecond}`;
      }
     
     
