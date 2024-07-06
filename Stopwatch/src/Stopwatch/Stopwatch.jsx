@@ -1,41 +1,44 @@
-import {useState, useEffect,} from "react"
+import {useState, useRef} from "react"
 //  import styles from './Stopwatch.module.css'
+const formatTime = (time)=>{
+   let stringData = time.current.innerHTML;
+   if(!stringData || !stringData.includes(':')){
+    stringData= "0:00"
+   }
+   let [minutes, seconds] = stringData.split(':').map(Number); 
+     seconds += 1;
+     if(seconds === 60){
+       minutes+=1;
+       seconds = 0;
+     }
+     const min = minutes.toString();
+     const sec = seconds.toString().padStart(2, '0')
+ 
+     time.current.innerHTML = `${min}:${sec}`;
+}
 const Stopwatch =()=>{
     const [timeIn, setTimeIn] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
-   
-    
- useEffect(() => {
-        let intervalId;
-        
-        if (isRunning){
-             intervalId = setInterval(()=>{setTimeIn(prevstate => prevstate + 1);
-           }, 1000);
-         } else if(!isRunning && timeIn !==0){
-            clearInterval(intervalId)
-         }
-         //  console.log('isRunning, timeIn',  clearInterval(intervalId))
-        return () => clearInterval(intervalId) // clear in unmount 
-       
-    },[isRunning,timeIn])
-   
-    // method to start timer 
-     const startStop=()=>{
-        setIsRunning(!isRunning)
-     };
-    // method to reset  timer back to 0
-   
-     const ResetTime = () => {
-         setTimeIn(0);
-         setIsRunning(false);
-    }
+    const valref = useRef(null);
 
-     const formatTime = (timeIn)=>{
-        const minutes = Math.floor(timeIn/60);
-        const remainingSecond = timeIn % 60;
-      //   console.log(remainingSecond)
-      //   console.log('formatTime', `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`)
-        return `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`;
+    const handleStartStop = (e) =>{
+      let val = e.target.innerHTML;
+      console.log(val)
+      if(val === 'Start'){
+         e.target.innerHTML = "Stop"
+         let t = valref
+        let timer = setInterval(formatTime, 1000, t)
+         console.log(timer)
+         setTimeIn(timer)
+      }else{
+         e.target.innerHTML = 'Start'
+         clearInterval(timeIn)
+      }
+    }
+    
+
+     const handleResetTime = ()=>{
+      valref.current.innerHTML = "0:00";
+         clearInterval(timeIn)
      }
     
     
@@ -43,12 +46,12 @@ const Stopwatch =()=>{
     <div>
        <h1>Stopwatch</h1>
        <span>Time</span>
-       <span>:{formatTime(timeIn)}</span>
+       <span ref={valref}>0:00</span>
         <div>
-            <button onClick={startStop}>
-                {isRunning ? 'Stop' : 'Start'}
+            <button onClick={handleStartStop}>
+                Start
             </button>
-            <button onClick={ResetTime} style={{margin:'10px'}}>Reset</button> 
+            <button onClick={handleResetTime} style={{margin:'10px'}}>Reset</button> 
         </div>
     </div>
    )
