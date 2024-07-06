@@ -8,12 +8,12 @@ useEffect(() => {
        
       if (isRunning){
              intervalId = setInterval(()=>{setTimeIn((prevstate) => prevstate + 1);
-               // console.log(intervalId)
+              
            }, 1000);
          } else{
             clearInterval(intervalId);
          }
-         // console.log('isRunning and timerIn',[isRunning, timeIn])
+         
          return () => clearInterval(intervalId) // clear in unmount 
        
     },[isRunning])
@@ -33,8 +33,7 @@ useEffect(() => {
      const formatTime = (timeIn)=>{
         const minutes = Math.floor(timeIn/60);
         const seconds = timeIn % 60;
-         // console.log(typeof Second)
-         // console.log('formatTime', `${minutes} : ${seconds < 10 ? `0${seconds}`: seconds}`)
+         
         return `${minutes}:${seconds < 10 ? `0${seconds}`: seconds}`;
      }
     
