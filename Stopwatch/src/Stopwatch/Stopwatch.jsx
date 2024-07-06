@@ -1,10 +1,11 @@
-import {useState,useEffect} from "react"
+import {useState, useEffect,} from "react"
 //  import styles from './Stopwatch.module.css'
 const Stopwatch =()=>{
     const [timeIn, setTimeIn] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
+   // const [timerRef] = useRef(null)
     
- useEffect(()=> {
+ useEffect(() => {
         let intervalId;
         if (isRunning){
              intervalId = setInterval(()=>{setTimeIn(prevstate => prevstate + 1);
@@ -20,6 +21,7 @@ const Stopwatch =()=>{
      };
     // method to reset  timer back to 0
      const ResetTime = () => {
+      console.log(setTimeIn(0))
         setTimeIn(0);
          setIsRunning(false);
     }
