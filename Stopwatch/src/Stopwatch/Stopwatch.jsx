@@ -3,22 +3,20 @@ import {useState, useEffect,} from "react"
 const Stopwatch =()=>{
     const [timeIn, setTimeIn] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
-   
-    
- useEffect(() => {
+useEffect(() => {
         let intervalId;
-        
-        if (isRunning){
-             intervalId = setInterval(()=>{setTimeIn(prevstate => prevstate + 1);
-           }, 1000);
-         } 
-         // else if(!isRunning && timeIn !==0){
-         //    clearInterval(intervalId)
-         // }
-         //  console.log('isRunning, timeIn',  clearInterval(intervalId))
-        return () => clearInterval(intervalId) // clear in unmount 
        
-    },[isRunning,timeIn])
+      if (isRunning){
+             intervalId = setInterval(()=>{setTimeIn((prevstate) => prevstate + 1);
+               // console.log(intervalId)
+           }, 1000);
+         } else{
+            clearInterval(intervalId);
+         }
+         // console.log('isRunning and timerIn',[isRunning, timeIn])
+         return () => clearInterval(intervalId) // clear in unmount 
+       
+    },[isRunning])
    
     // method to start timer 
      const startStop=()=>{
@@ -26,17 +24,18 @@ const Stopwatch =()=>{
      };
     // method to reset  timer back to 0
    
-     const ResetTime = () => {
-         setTimeIn(0);
-         setIsRunning(false);
+      const ResetTime = () => {
+           setTimeIn(0);
+          setIsRunning(false);
+        console.log( setTimeIn(0))
     }
 
      const formatTime = (timeIn)=>{
         const minutes = Math.floor(timeIn/60);
-        const remainingSecond = timeIn % 60;
-      //   console.log(remainingSecond)
-      //   console.log('formatTime', `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`)
-        return `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`;
+        const seconds = timeIn % 60;
+         // console.log(typeof Second)
+         // console.log('formatTime', `${minutes} : ${seconds < 10 ? `0${seconds}`: seconds}`)
+        return `${minutes} : ${seconds < 10 ? `0${seconds}`: seconds}`;
      }
     
     
