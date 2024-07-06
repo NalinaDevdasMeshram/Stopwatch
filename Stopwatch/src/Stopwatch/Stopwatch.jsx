@@ -1,63 +1,63 @@
-import {useState, useRef} from "react"
+import {useState,useEffect, useRef} from "react"
 //  import styles from './Stopwatch.module.css'
 const formatTime = (time)=>{
    let stringData = time.current.innerHTML;
-   let arr = stringData.split(':');
-   let minutes = arr[0];
-   let seconds = arr[1];
-   let mins = Number(minutes);
-   let secs = Number(seconds);
-     secs += 1;
-     if(secs === 60){
-       mins += 1;
-       secs = 0;
-     }
-     let min1 = "";
-     let sec1 = "";
- if(mins.toString().length < 2){
-   min1 = mins;
- }else{
-   min1 = mins;
- }
- if(secs.toString().length < 2){
-   sec1 = "0" + secs;
-   }else{
-   sec1 = secs;
- }
+   let [minutes, seconds] = stringData.split(':').map(Number);
+
+   seconds += 1;
+   if (seconds === 60) {
+       minutes += 1;
+       seconds = 0;
+   }
+
+   const min1 = minutes.toString();
+   const sec1 = seconds.toString().padStart(2, "0");
+
+   time.current.innerHTML = `${min1}:${sec1}`;
  
-     time.current.innerHTML = `${min1}:${sec1}`;
+    
 }
 const Stopwatch =()=>{
-    const [timeIn, setTimeIn] = useState(0);
-    const valref = useRef(null);
+    const [timer, setTimer] = useState(null);
+    const timeref = useRef(null);
 
     const handleStartStop = (e) =>{
-      let val = e.target.innerHTML;
-      console.log(val)
+      const  val = e.target.innerHTML;
+      
       if(val === 'Start'){
          e.target.innerHTML = "Stop"
-         let t = valref
-        let timer = setInterval(formatTime, 1000, t)
+         const t = timeref
+        const newTimer = setInterval( ()=>formatTime(t), 1000)
          // console.log(timer)
-         setTimeIn(timer)
+         setTimer(newTimer)
       }else{
          e.target.innerHTML = 'Start'
-         clearInterval(timeIn)
+         clearInterval(timer);
+         setTimer(null);
       }
     }
     
 
      const handleResetTime = ()=>{
-      valref.current.innerHTML = "0:00";
-         clearInterval(timeIn)
+      timeref.current.innerHTML = "0:00";
+         if(timer){
+            clearInterval(timer);
+            setTimer(null);
+         }
      }
-    
+     useEffect(() => {
+      return () => {
+          if (timer) {
+              clearInterval(timer);
+          }
+      };
+  }, [timer]);
     
  return(
     <div>
        <h1>Stopwatch</h1>
        <span>Time :</span>
-       <span ref={valref}>0:00</span>
+       <span ref={timeref}>0:00</span>
         <div>
             <button onClick={handleStartStop}>
                 Start
