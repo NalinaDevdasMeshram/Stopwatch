@@ -35,7 +35,7 @@ useEffect(() => {
         const seconds = timeIn % 60;
          // console.log(typeof Second)
          // console.log('formatTime', `${minutes} : ${seconds < 10 ? `0${seconds}`: seconds}`)
-        return `${minutes} : ${seconds < 10 ? `0${seconds}`: seconds}`;
+        return `${minutes}:${seconds < 10 ? `0${seconds}`: seconds}`;
      }
     
     
@@ -43,7 +43,7 @@ useEffect(() => {
     <div>
        <h1>Stopwatch</h1>
        <span>Time</span>
-       <span>:{formatTime(timeIn)}</span>
+       <span>: {formatTime(timeIn)}</span>
         <div>
             <button onClick={startStop}>
                 {isRunning ? 'Stop' : 'Start'}
