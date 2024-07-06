@@ -56,13 +56,13 @@ const Stopwatch =()=>{
  return(
     <div>
        <h1>Stopwatch</h1>
-       <span>Time</span>
+       <span>Time :</span>
        <span ref={valref}>0:00</span>
         <div>
             <button onClick={handleStartStop}>
                 Start
             </button>
-            <button onClick={handleResetTime} style={{margin:'10px'}}>Reset</button> 
+            <button onClick={handleResetTime}>Reset</button> 
         </div>
     </div>
    )
