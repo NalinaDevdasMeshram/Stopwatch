@@ -1,67 +1,76 @@
-import {useState, useEffect,useRef} from "react"
+import {useState,useRef} from "react"
 //  import styles from './Stopwatch.module.css'
-const formatTime = (timeInSeconds)=>{
-   const minutes = Math.floor(timeInSeconds/60);
-   const remainingSecond = timeInSeconds % 60;
- //   console.log(remainingSecond)
- //   console.log('formatTime', `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`)
-   return `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`;
-}
-const Stopwatch =()=>{
-    const [timeIn, setTimeIn] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
-    const intervalRef = useRef(null);
-    
-    
- useEffect(() => {
-       
-       if (isRunning){
-             intervalRef.current = setInterval(()=>{setTimeIn(prevstate => prevstate + 1);
-           }, 1000);
-         } 
-          else if(intervalRef.current){
-            clearInterval(intervalRef.current);
-          }
-         //  console.log('isRunning, timeIn',  clearInterval(intervalId))
-        return () => clearInterval(intervalRef.current) // clear in unmount 
-       
-    },[isRunning]);
 
-    const startStop =() =>{
-      setIsRunning(prevstate => !prevstate)
-    }
-    
-    // method to reset  timer back to 0
-   
-     const ResetTime = () => {
-         setTimeIn(0);
-         setIsRunning(false);
-         
-    }
 
-   //   const formatTime = (timeIn)=>{
-   //      const minutes = Math.floor(timeIn/60);
-   //      const remainingSecond = timeIn % 60;
-   //    //   console.log(remainingSecond)
-   //    //   console.log('formatTime', `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`)
-   //      return `${minutes} : ${remainingSecond < 10 ? `0${remainingSecond}`: remainingSecond}`;
-   //   }
-    
-    
- return(
-    <div>
-       <h1>Stopwatch</h1>
-       <span>Time:</span>
-       <span>{formatTime(timeIn)}</span>
-        <div>
-            <button onClick={startStop}>
-                {isRunning ? 'Stop' : 'Start'}
-            </button>
-            <button onClick={ResetTime} style={{margin:'4px'}}>Reset</button> 
-        </div>
-    </div>
-   )
    
-}
-export default Stopwatch
+   const calculatetime = (val) => {
+     let t = val.current.innerHTML;
+     let arr = t.split(":");
+     let minutes = arr[0];
+     let seconds = arr[1];
+     let min = Number(minutes);
+     let sec = Number(seconds);
+     sec += 1;
+     if (sec === 60) {
+       min += 1;
+       sec = 0;
+     }
+   
+     let min1 = "";
+     let sec1 = "";
+     if (min.toString().length < 2) {
+       min1 = min;
+     } else {
+       min1 = min;
+     }
+     if (sec.toString().length < 2) {
+       sec1 = "0" + sec;
+     } else {
+       sec1 = sec;
+     }
+     val.current.innerHTML = min1 + ":" + sec1;
+   };
+   const Stopwatch = () => {
+     const refval = useRef(null);
+     const [time, setTime] = useState(0);
+     const handlechange = (e) => {
+       let val = e.target.innerHTML;
+       if (val === "Start") {
+         e.target.innerHTML = "Stop";
+         let t = refval;
+         let timer = setInterval(calculatetime, 1000, t);
+         setTime(timer);
+       } else {
+         e.target.innerHTML = "Start";
+         clearInterval(time);
+       }
+     };
+     const handlereset = () => {
+       refval.current.innerHTML = "0:00";
+       clearInterval(time);
+     };
+     return (
+       <div>
+         <h1>Stopwatch</h1>
+         {/* <div style={{ display: "flex" }}> */}
+         <span>Time: </span>
+         <span ref={refval}>0:00 </span>
+         {/* </div> */}
+         <div>
+           <button onClick={handlechange} className="btn">
+             Start
+           </button>
+           <button onClick={handlereset} className="btn">
+             Reset
+           </button>
+         </div>
+       </div>
+     );
+   };
+   
+   export default Stopwatch;
+   
+ 
+   
+
 
