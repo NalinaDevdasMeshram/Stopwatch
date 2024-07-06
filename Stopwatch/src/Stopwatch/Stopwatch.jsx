@@ -20,7 +20,7 @@ useEffect(() => {
    
     // method to start timer 
      const startStop=()=>{
-        setIsRunning(!isRunning)
+        setIsRunning((prevIsRunning) => !prevIsRunning)
      };
     // method to reset  timer back to 0
    
