@@ -47,7 +47,7 @@ useEffect(() => {
             <button onClick={startStop}>
                 {isRunning ? 'Stop' : 'Start'}
             </button>
-            <button onClick={ResetTime} style={{margin:'10px'}}>Reset</button> 
+            <button onClick={ResetTime}>Reset</button> 
         </div>
     </div>
    )
